@@ -1,0 +1,29 @@
+# === Python Bytecode ===
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*/__pycache__/
+
+# === Environment Files ===
+.env
+*.env
+
+# === Virtual Environments ===
+venv/
+myenv/
+env/
+.venv/
+
+# === Django Database ===
+db.sqlite3
+*.sqlite3
+
+# === Django Static & Media (Optional if collected in prod) ===
+staticfiles/
+media/
+static/
+
+README_ENV_SETUP.md
+SEARCH_FILTER_README.md
+project_explanation.md

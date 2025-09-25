@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart | BlueCart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0a192f;
+      --secondary: #00ff88;
+      --accent: #ff0080;
+      --neon-blue: #00f6ff;
+      --neon-purple: #7000ff;
+      --text-light: #e6f1ff;
+      --dark-bg: #1a1a2e;
+      --card-bg: #16213e;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glow: 0 0 20px rgba(0, 246, 255, 0.3);
+      --gradient: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--primary);
+      margin: 0;
+      padding: 0;
+      color: var(--text-light);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 246, 255, 0.15), transparent 70%),
+        radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 60px auto;
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid var(--glass);
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      color: var(--secondary);
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60%;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 8px;
+      margin-top: -8px;
+    }
+
+    th, td {
+      padding: 20px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--dark-bg);
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--secondary);
+    }
+
+    th:first-child {
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    th:last-child {
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--glass);
+      width: fit-content;
+    }
+
+    .btn-quantity {
+      background: var(--dark-bg);
+      border: 1px solid var(--glass);
+      color: var(--text-light);
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .btn-quantity:hover {
+      background: var(--secondary);
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--glow);
+    }
+
+    .quantity {
+      color: var(--text-light);
+      font-weight: 500;
+      min-width: 40px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    tr {
+      background: var(--dark-bg);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    tr::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 12px;
+    }
+
+    tr:hover {
+      transform: translateY(-2px);
+    }
+
+    tr:hover::before {
+      opacity: 0.1;
+    }
+
+    td {
+      background: var(--dark-bg);
+      color: var(--text-light);
+      position: relative;
+      z-index: 1;
+    }
+
+    td:first-child {
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    td:last-child {
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .remove-btn {
+      padding: 8px 16px;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: 0 0 15px rgba(255, 0, 128, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .remove-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .remove-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(255, 0, 128, 0.4);
+    }
+
+    .remove-btn:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    .checkout-btn, 
+    .btn-primary {
+      padding: 14px 28px;
+      background: var(--secondary);
+      color: var(--primary);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .checkout-btn::before,
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .checkout-btn:hover,
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+    }
+
+    .checkout-btn:hover::before,
+    .btn-primary:hover::before {
+      opacity: 0.2;
+    }
+
+    .total {
+      margin: 30px 0;
+      text-align: right;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--secondary);
+      padding: 20px;
+      background: var(--dark-bg);
+      border-radius: 12px;
+      border: 1px solid var(--glass);
+      display: inline-block;
+      float: right;
+      min-width: 200px;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    .back-link {
+      margin-top: 40px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--neon-blue);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 12px 24px;
+      border: 1px solid var(--neon-blue);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .back-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--neon-blue);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+      background: var(--neon-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(0, 246, 255, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      th, td {
+        padding: 12px;
+      }
+
+      .total {
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .checkout-btn,
+      .btn-primary {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .back-link {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      img{
+        width:20px;
+        height: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart_items %}
+    <table>
+      <tr>
+        <th>image</th>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+      {% for item in cart_items %}
+      <tr>
+      
+        <td><img style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" src="{{ item.products.image }}" alt="{{ item.products.name }}"></td>
+                <td><a style="color: #e6f1ff;text-decoration: none;" href="{% url 'product_detail' product_id=item.products.id %}">{{ item.products.name }}</a></td>
+        <td>
+          <form action="{% url 'add_to_cart' item.products.id %}" method="post" class="quantity-form">
+            {% csrf_token %}
+            <div class="quantity-controls">
+              <button type="submit" name="action" value="decrease" class="btn-quantity" action="decrease">
+                <i class="fas fa-minus"></i>
+              </button>
+              <span class="quantity">{{ item.quantity }}</span>
+              <button type="submit" name="action" value="increase" class="btn-quantity" action="increase">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </form>
+
+          
+        </td>
+        <td>₹{{ item.products.price }}</td>
+        <td>₹{{ item.total_price }}</td>
+        <td>
+          <form method="post" action="{% url 'remove_from_cart' item.id %}" style="display: inline-block;">
+            {% csrf_token %}
+            <button type="submit" class="remove-btn">
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <div class="total">
+      Total: ₹{{ total_amount }}
+    </div>
+    
+    {% if cart_items %}
+   
+    <form action="{% url 'create-checkout-session' %}" method="post" class="text-end mt-2" style="text-align: center; margin-top: 30px;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary btn-sm" style="background-color: #1D4ED8; color:white; border:#1D4ED8 width 0; padding: 10px; border-radius: 10px;">🗑 Pay Now </button>
+    </form>
+    {% endif %}
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="back-link">← Continue Shopping</a>
+  </div>
+
+  {% include 'includes/footer.html' %}
+
+  <!-- Floating Chat Button -->
+  <a href="{% url 'gemini_ai' %}" class="floating-chat-button">
+    <i class="fas fa-comment-dots"></i>
+  </a>
+
+  <style>
+  .floating-chat-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--secondary);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      border: none;
+      font-size: 24px;
+  }
+
+  .floating-chat-button:hover {
+      transform: scale(1.1);
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: var(--glow);
+  }
+  </style>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</body>
+</html>

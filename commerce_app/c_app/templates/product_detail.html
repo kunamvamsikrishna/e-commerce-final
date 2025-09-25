@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }} - NeoShop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f3460;
+            --secondary: #00ff88;
+            --accent: #ff0080;
+            --accent-hover: #e6007a;
+            --neon-blue: #00f6ff;
+            --neon-purple: #7000ff;
+            --text-light: #e6f1ff;
+            --text-dark: #0a192f;
+            --white: #ffffff;
+            --gray-100: #1a1a2e;
+            --gray-200: #16213e;
+            --gray-800: #0f3460;
+            --glass: rgba(255, 255, 255, 0.05);
+            --shadow-sm: 0 2px 4px rgba(0, 246, 255, 0.1);
+            --shadow: 0 4px 20px rgba(0, 246, 255, 0.15);
+            --shadow-lg: 0 8px 30px rgba(0, 246, 255, 0.2);
+            --gradient: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            --glow: 0 0 20px rgba(0, 246, 255, 0.5);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: var(--gray-100);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+
+        .profile-trigger {
+            background: var(--glass);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .product-card {
+            background: var(--gray-200);
+            border-radius: 20px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .product-gallery {
+            position: relative;
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid var(--glass);
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.02);
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .product-header {
+            border-bottom: 1px solid var(--glass);
+            padding-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--neon-blue);
+        }
+
+        .price-section {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .current-price {
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .original-price {
+            color: var(--text-light);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .discount-badge {
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .description-section {
+            background: rgba(0, 246, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .spec-group {
+            background: var(--gray-100);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass);
+        }
+
+        .spec-group h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .spec-label {
+            color: var(--text-light);
+            opacity: 0.8;
+        }
+
+        .spec-value {
+            color: var(--neon-blue);
+            font-weight: 500;
+        }
+
+        .add-to-cart-section {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--glass);
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-200);
+            border: none;
+            border-radius: 6px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+
+        .quantity-value {
+            width: 40px;
+            text-align: center;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            background: var(--secondary);
+            color: var(--text-dark);
+            border: none;
+            padding: 0 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .reviews-section {
+            margin-top: 3rem;
+        }
+
+        .review-card {
+            background: var(--gray-100);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        .review-date {
+            color: var(--text-light);
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+
+        .review-content {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                grid-template-columns: 1fr;
+            }
+            .product-image {
+                aspect-ratio: 4/3;
+            }
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 3px solid var(--solidglass);
+      width: fit-content;
+    }
+
+    .btn-quantity {
+      background: var(--dark-bg);
+      border: 1px solid var(--glass);
+      color: var(--text-light);
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .btn-quantity:hover {
+      background: var(--secondary);
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--glow);
+    }
+
+    .quantity {
+      color: var(--text-light);
+      font-weight: 500;
+      min-width: 40px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    .in-cart{
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 20px;
+        border-radius: 16px;
+        width: 150px;
+        display: inline;
+
+    }
+    .btn.in-cart {
+            background: var(--neon-blue);
+            color: var(--primary);
+        }
+
+    .in-cart:hover {
+            background: var(--accent);
+            color: var(--white);
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'home' %}" class="nav-logo">NeoShop</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="{% url 'orders' %}" class="nav-link">
+                    <i class="fas fa-box"></i> Orders
+                </a>
+                <a href="{% url 'cart' %}" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+                <div class="profile-trigger">
+                    <i class="fas fa-user"></i>
+                    {{ user.username }}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="product-card">
+            <div class="product-gallery">
+                <img src="{{ product.image }}" alt="{{ product.title }}" class="product-image">
+            </div>
+
+            <div class="product-info">
+                <div class="product-header">
+                    <h1 class="product-title">{{ product.title|default:product.name }}</h1>
+                    <div class="product-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Brand: {{ product.brand }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-star"></i>
+                            <span>Rating: {{ product.rating|floatformat:1 }}/5</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-box"></i>
+                            <span>Status: {% if product.stock > 0 %}In Stock ({{ product.stock }} units){% else %}Out of Stock{% endif %}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-barcode"></i>
+                            <span>SKU: {{ product.sku }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-section">
+                    <span class="current-price">${{ product.price }}</span>
+                    {% if product.discountPercentage %}
+                    <span class="original-price">${{ product.original_price }}</span>
+                    <span class="discount-badge">{{ product.discountPercentage }}% OFF</span>
+                    {% endif %}
+                </div>
+
+                <div class="description-section">
+                    <p>{{ product.description }}</p>
+                </div>
+
+                        
+                        {% if product.cart_quantity >= 1 %} 
+                        <form action="{% url 'add_to_cart' product.id %}" method="post" class="quantity-form">
+                            {% csrf_token %}
+                             <div class="quantity-controls">
+                                <button type="submit" name="action" value="decrease" class="btn-quantity">
+                                    <i class="fas fa-minus"></i> 
+                              </button> 
+                                 <span class="quantity">
+                                    quantity :
+                                   
+                                    <span style="color:#FFD700"> {{ product.cart_quantity }} </span>
+                                </span>
+                                 <button type="submit" name="action" value="increase" class="btn-quantity">
+                                    <i class="fas fa-plus"></i> 
+                                </button> 
+                            </div>
+                            <button type="submit" name="action" value="add" class="{% if product.cart_quantity > 0 %} in-cart {% else %} in-cart {% endif %}">
+                                <i class="fas fa-shopping-cart"></i>
+                                {% if product.cart_quantity > 0 %}
+                                    Update Cart
+                                {% else %}
+                                    Add to Cart
+                                {% endif %}
+                            </button> 
+                        </form>
+                        {% else %}
+                           <form action="{% url 'add_to_cart' product.id %}" method="post" class="quantity-form">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="increase" class="{% if product.cart_quantity > 0 %} in-cart {% else %} in-cart {% endif %}">
+                                <i class="fas fa-shopping-cart"></i>
+                                {% if product.cart_quantity > 0 %}
+                                    Update Cart
+                                {% else %}
+                                    Add to Cart
+                                {% endif %}
+                            </button> 
+                        </form>
+                        {% endif %}
+                
+                <div class="specs-grid">
+                    <div class="spec-group">
+                        <h3>Product Details</h3>
+                        <div class="spec-item">
+                            <span class="spec-label">Category</span>
+                            <span class="spec-value">{{ product.category|title }}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Brand</span>
+                            <span class="spec-value">{{ product.brand }}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Weight</span>
+                            <span class="spec-value">{{ product.weight }}g</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Minimum Order</span>
+                            <span class="spec-value">{{ product.minimumOrderQuantity }} units</span>
+                        </div>
+                    </div>
+
+                    <div class="spec-group">
+                        <h3>Shipping & Returns</h3>
+                        <div class="spec-item">
+                            <span class="spec-label">Shipping Info</span>
+                            <span class="spec-value">{{ product.shippingInformation }}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Return Policy</span>
+                            <span class="spec-value">{{ product.returnPolicy }}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Warranty</span>
+                            <span class="spec-value">{{ product.warrantyInformation }}</span>
+                        </div>
+                    </div>
+
+                    <div class="spec-group">
+                        <h3>Dimensions</h3>
+                        <div class="spec-item">
+                            <span class="spec-label">Width</span>
+                            <span class="spec-value">{{ product.dimensions.width }}cm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Height</span>
+                            <span class="spec-value">{{ product.dimensions.height }}cm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Depth</span>
+                            <span class="spec-value">{{ product.dimensions.depth }}cm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reviews-section">
+                    <h2>Customer Reviews</h2>
+                    {% for review in product.reviews %}
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer">
+                                <i class="fas fa-user-circle"></i>
+                                <strong>{{ review.reviewerName }}</strong>
+                            </div>
+                            <div class="stars">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                              
+                                 
+                            </div>
+                        </div>
+                        <div class="review-date">
+                            Date :{{ review.date }}
+                            <br>
+                           E-mail : {{review.reviewerEmail}}
+                        </div>
+                        <div class="review-content">
+                            {{ review.comment }}
+                           
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInput = document.querySelector('.quantity-value');
+            const minusBtn = document.querySelector('.minus');
+            const plusBtn = document.querySelector('.plus');
+            const maxStock = {{ product.stock }};
+
+            minusBtn.addEventListener('click', () => {
+                let value = parseInt(quantityInput.value);
+                if (value > 1) {
+                    quantityInput.value = value - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', () => {
+                let value = parseInt(quantityInput.value);
+                if (value < maxStock) {
+                    quantityInput.value = value + 1;
+                }
+            });
+        });
+    </script>
+    
+    {% include 'includes/footer.html' %}
+
+    <!-- Floating Chat Button -->
+    <a href="{% url 'gemini_ai' %}" class="floating-chat-button">
+        <i class="fas fa-comment-dots"></i>
+    </a>
+
+    <style>
+    .floating-chat-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--secondary);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        border: none;
+        font-size: 24px;
+    }
+
+    .floating-chat-button:hover {
+        transform: scale(1.1);
+        background: var(--accent);
+        color: var(--white);
+        box-shadow: var(--glow);
+    }
+    </style>
+</body>
+</html>

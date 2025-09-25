@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BlueCart{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #00ff88;
+            --accent: #ff0080;
+            --accent-hover: #e6007a;
+            --neon-blue: #00f6ff;
+            --neon-purple: #7000ff;
+            --text-light: #e6f1ff;
+            --text-dark: #0a192f;
+            --white: #ffffff;
+            --gray-100: #1a1a2e;
+            --gray-200: #16213e;
+            --gray-800: #0f3460;
+            --glass: rgba(255, 255, 255, 0.05);
+            --shadow-sm: 0 2px 4px rgba(0, 246, 255, 0.1);
+            --shadow: 0 4px 20px rgba(0, 246, 255, 0.15);
+            --shadow-lg: 0 8px 30px rgba(0, 246, 255, 0.2);
+            --gradient: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            --glow: 0 0 20px rgba(0, 246, 255, 0.5);
+            --filter-bg: rgba(22, 33, 62, 0.95);
+            --filter-border: rgba(0, 246, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--gray-100);
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% include 'includes/navbar.html' %}
+    
+    {% block content %}{% endblock %}
+
+    <!-- Floating Chat Button -->
+    <a href="{% url 'gemini_ai' %}" class="floating-chat-button">
+        <i class="fas fa-comment-dots"></i>
+    </a>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

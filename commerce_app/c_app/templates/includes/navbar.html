@@ -1,0 +1,180 @@
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="{% url 'home' %}" class="nav-logo">BlueCart</a>
+        <div class="nav-links">
+            <div class="search-wrapper">
+                <form action="{% url 'home' %}" method="get" class="search-form">
+                    <div class="search-container">
+                        <input type="text" name="search" id="searchInput" placeholder="Search products..." class="search-input" value="{{ request.GET.search }}" autocomplete="off">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+            <a href="{% url 'home' %}" class="nav-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="{% url 'orders' %}" class="nav-link">
+                <i class="fas fa-box"></i> Orders
+            </a>
+            <a href="{% url 'cart' %}" class="nav-link">
+                <i class="fas fa-shopping-cart"></i> Cart
+            </a>
+            <div class="profile-trigger">
+                <i class="fas fa-user"></i>
+                {{ user.username }}
+            </div>
+            <a href="{% url 'logout' %}" class="nav-link logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Existing navbar styles */
+    .search-wrapper {
+        position: relative;
+        margin-right: 2rem;
+    }
+
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--gray-200);
+        border: 1px solid var(--filter-border);
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        max-height: 300px;
+        overflow-y: auto;
+        display: none;
+        z-index: 1000;
+        box-shadow: var(--shadow-lg);
+        backdrop-filter: blur(10px);
+    }
+
+    .search-result-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--glass);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .search-result-item:last-child {
+        border-bottom: none;
+    }
+
+    .search-result-item:hover {
+        background: var(--primary);
+    }
+
+    .search-result-image {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .search-result-info {
+        flex: 1;
+    }
+
+    .search-result-name {
+        color: var(--text-light);
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .search-result-price {
+        color: var(--secondary);
+        font-size: 0.9rem;
+    }
+
+    .search-result-category {
+        color: var(--neon-blue);
+        font-size: 0.8rem;
+    }
+
+    /* Scrollbar styles for search results */
+    .search-results::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .search-results::-webkit-scrollbar-track {
+        background: var(--gray-800);
+        border-radius: 8px;
+    }
+
+    .search-results::-webkit-scrollbar-thumb {
+        background: var(--neon-blue);
+        border-radius: 8px;
+    }
+
+    .search-results::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary);
+    }
+</style>
+
+<script>
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+let debounceTimer;
+
+searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        const query = this.value.trim();
+        if (query.length >= 2) {
+            fetchSearchResults(query);
+        } else {
+            searchResults.style.display = 'none';
+        }
+    }, 300);
+});
+
+// Close search results when clicking outside
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.search-wrapper')) {
+        searchResults.style.display = 'none';
+    }
+});
+
+function fetchSearchResults(query) {
+    fetch(`/api/search-products/?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.products && data.products.length > 0) {
+                displaySearchResults(data.products);
+            } else {
+                searchResults.innerHTML = '<div class="search-result-item">No products found</div>';
+                searchResults.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            searchResults.style.display = 'none';
+        });
+}
+
+function displaySearchResults(products) {
+    searchResults.innerHTML = products.map(product => `
+        <a href="/product/${product.id}/detail/" class="search-result-item">
+            <img src="${product.image || '/static/default-product.jpg'}" alt="${product.name}" class="search-result-image">
+            <div class="search-result-info">
+                <div class="search-result-name">${product.name}</div>
+                <div class="search-result-price">$${product.price}</div>
+                <div class="search-result-category">${product.category}</div>
+            </div>
+        </a>
+    `).join('');
+    searchResults.style.display = 'block';
+}
+</script>

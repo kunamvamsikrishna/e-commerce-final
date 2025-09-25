@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up | CodeCart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, 
+        #0a0a0a 0%, 
+        #1a1a2e 25%, 
+        #16213e 50%, 
+        #0f3460 75%, 
+        #533483 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      background: transparent;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #8a2be2, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+      text-decoration: none;
+    }
+
+    .logo:hover {
+      background: linear-gradient(45deg, #00ff88, #ff0080);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Main Container */
+    .main-container {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 2rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(138,43,226,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .signup-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 2rem 2.5rem;
+      border-radius: 25px;
+      border: 1px solid rgba(138, 43, 226, 0.2);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 450px;
+      transform: scale(1);
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .signup-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(138, 43, 226, 0.1), rgba(0, 255, 136, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .signup-container:hover::before {
+      opacity: 1;
+    }
+
+    .signup-container:hover {
+      transform: scale(1.02);
+      border-color: rgba(138, 43, 226, 0.4);
+      box-shadow: 0 30px 60px rgba(138, 43, 226, 0.2);
+    }
+
+    .signup-container h2 {
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #8a2be2, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      z-index: 1;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }.main-container {
+  min-height: 60vh; /* was 70vh */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem 1.5rem; /* was 6rem 2rem 2rem */
+  position: relative;
+  z-index: 2;
+  max-width: 1100px; /* added: to make it slightly wider */
+  margin: 0 auto;
+}
+
+.signup-container {
+  padding: 1.5rem 2rem; /* reduced from 2rem 2.5rem */
+  margin: 1rem auto; /* more compact */
+  max-width: 500px; /* slightly wider */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+  padding: 0.8rem 1rem; /* reduced from 1rem 1.2rem */
+  margin-bottom: 1rem;  /* was 1.5rem */
+  font-size: 0.9rem;
+}
+
+
+    label {
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    select {
+      padding: 1rem 1.2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 15px;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    input[type="text"]::placeholder,
+    input[type="password"]::placeholder,
+    input[type="email"]::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus,
+    select:focus {
+      border-color: #00ff88;
+      box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .gender-group {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .gender-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .gender-option:hover {
+      background: rgba(138, 43, 226, 0.2);
+      border-color: #8a2be2;
+      transform: translateY(-2px);
+    }
+
+    .gender-option input[type="radio"] {
+      margin: 0;
+      cursor: pointer;
+      accent-color: #00ff88;
+    }
+
+    .gender-option label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    button {
+      padding: 1rem 1rem;
+      background: linear-gradient(45deg, #8a2be2, #00ff88);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #00ff88, #ff0080);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    button:hover::before {
+      left: 0;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(138, 43, 226, 0.6);
+    }
+
+    .google-login-btn {
+      background: linear-gradient(45deg, #4285f4, #34a853);
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .google-login-btn:hover {
+      background: linear-gradient(45deg, #34a853, #4285f4);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer a {
+      color: #00ff88;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .footer a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(45deg, #00ff88, #ff0080);
+      transition: width 0.3s ease;
+    }
+
+    .footer a:hover::after {
+      width: 100%;
+    }
+
+    .footer a:hover {
+      color: #ff0080;
+      text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+    }
+
+    .login-redirect-btn {
+      background: linear-gradient(45deg, #ff0080, #8a2be2);
+      color: #ffffff;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(255, 0, 128, 0.4);
+    }
+
+    .login-redirect-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #8a2be2, #00ff88);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    .login-redirect-btn:hover::before {
+      left: 0;
+    }
+
+    .login-redirect-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(255, 0, 128, 0.6);
+    }
+
+    .password-requirements {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: -1rem;
+      margin-bottom: 1.5rem;
+      padding-left: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .error-msg {
+      color: #ff6b6b;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background: rgba(255, 107, 107, 0.1);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header {
+        padding: 1rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .main-container {
+        padding: 5rem 1rem 2rem;
+      }
+
+      .signup-container {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        max-width: 400px;
+      }
+
+      .signup-container h2 {
+        font-size: 1.8rem;
+      }
+
+      .gender-group {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .gender-option {
+        justify-content: center;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      select {
+        padding: 0.9rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      button {
+        padding: 0.9rem 1.2rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .signup-container {
+        padding: 1.5rem 1rem;
+        margin: 0.5rem;
+      }
+
+      .signup-container h2 {
+        font-size: 1.6rem;
+      }
+
+      .gender-group {
+        gap: 0.5rem;
+      }
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #8a2be2, #00ff88);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #00ff88, #ff0080);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="" class="logo">CodeCart</a>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <div class="signup-container">
+      <h2>Create Account</h2>
+
+      <form method="POST" action="{% url 'signup' %}">
+        {% csrf_token %}
+        
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <div class="password-requirements">
+          Password must be at least 8 characters long
+        </div>
+
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+
+        <label>Gender</label>
+        <div class="gender-group">
+          <div class="gender-option">
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">Male</label>
+          </div>
+          <div class="gender-option">
+            <input type="radio" id="female" name="gender" value="female" required>
+            <label for="female">Female</label>
+          </div>
+          <div class="gender-option">
+            <input type="radio" id="other" name="gender" value="other" required>
+            <label for="other">Other</label>
+          </div>
+        </div>
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <!-- Google Signup -->
+      <form method="GET" action="{% url 'social:begin' 'google-oauth2' %}">
+        <button type="submit" class="google-login-btn">
+          <i class="fab fa-google" style="margin-right: 8px;"></i>
+          Continue with Google
+        </button>
+      </form>
+
+      <!-- Login Redirect Button -->
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="{% url 'login' %}" class="login-redirect-btn">
+          <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>
+          Already have an account? Login here
+        </a>
+      </div>
+
+      <div class="footer">
+        <p>By creating an account, you agree to our Terms of Service and Privacy Policy</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+default_app_config = 'c_app.apps.CAppConfig'                                                                                                                        

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Essence Mascara - Product Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f2f4f8;
+      color: #1e293b;
+    }
+
+    .product-page {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+    }
+
+    .product-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1E3A8A;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      color: #2563EB;
+      font-weight: bold;
+    }
+
+    .discount {
+      font-size: 1rem;
+      color: #10b981;
+    }
+
+    .stock {
+      font-weight: 500;
+      color: #16a34a;
+    }
+
+    .btn-add-cart {
+      background-color: #2563EB;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn-add-cart:hover {
+      background-color: #1E40AF;
+    }
+
+    .product-specs li {
+      margin-bottom: 6px;
+    }
+
+    .review-card {
+      background: #f9fafb;
+      border-left: 4px solid #2563EB;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .qr-barcode {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      background: #1E3A8A;
+      color: #f1f5f9;
+      padding: 40px;
+      text-align: center;
+      margin-top: 60px;
+      border-radius: 12px 12px 0 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="product-page">
+    <div class="row">
+      <!-- Image -->
+      <div class="col-md-5 product-image">
+        <img src="https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp" alt="Essence Mascara">
+      </div>
+
+      <!-- Info -->
+      <div class="col-md-7">
+        <h1 class="product-title">Essence Mascara Lash Princess</h1>
+        <p class="price">$9.99 <span class="discount">(10.48% OFF)</span></p>
+        <p class="stock">Availability: In Stock (99 left)</p>
+        <p><strong>Brand:</strong> Essence</p>
+        <p><strong>Category:</strong> Beauty & Mascara</p>
+        <p><strong>SKU:</strong> BEA-ESS-ESS-001</p>
+        <p><strong>Rating:</strong> 2.56 / 5 ⭐</p>
+
+        <button class="btn-add-cart mt-3">Add to Cart</button>
+      </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Description and Specs -->
+    <div class="row">
+      <div class="col-md-7">
+        <h4>Description</h4>
+        <p>The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.</p>
+        
+        <h5>Shipping & Warranty</h5>
+        <ul class="product-specs">
+          <li><strong>Shipping:</strong> Ships in 3-5 business days</li>
+          <li><strong>Warranty:</strong> 1 week warranty</li>
+          <li><strong>Return Policy:</strong> No return policy</li>
+          <li><strong>Minimum Order Quantity:</strong> 48</li>
+        </ul>
+      </div>
+
+      <div class="col-md-5">
+        <h5>Dimensions & Meta</h5>
+        <ul class="product-specs">
+          <li>Weight: 4g</li>
+          <li>Width: 15.14cm</li>
+          <li>Height: 13.08cm</li>
+          <li>Depth: 22.99cm</li>
+          <li>Barcode: 5784719087687</li>
+        </ul>
+
+        <div class="qr-barcode">
+          <div>
+            <p><strong>QR Code:</strong></p>
+            <img src="https://cdn.dummyjson.com/public/qr-code.png" width="120">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Reviews -->
+    <h4>Customer Reviews</h4>
+    <div class="review-card">
+      <p><strong>Eleanor Collins</strong> (⭐ 3/5): Would not recommend!</p>
+      <small>April 30, 2025</small>
+    </div>
+    <div class="review-card">
+      <p><strong>Lucas Gordon</strong> (⭐ 4/5): Very satisfied!</p>
+      <small>April 30, 2025</small>
+    </div>
+    <div class="review-card">
+      <p><strong>Eleanor Collins</strong> (⭐ 5/5): Highly impressed!</p>
+      <small>April 30, 2025</small>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 BlueCart. All rights reserved.</p>
+    <p>Follow us on social media • Terms • Privacy</p>
+  </div>
+
+</body>
+</html>

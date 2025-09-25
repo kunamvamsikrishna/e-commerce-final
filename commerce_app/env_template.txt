@@ -1,0 +1,17 @@
+# Django Settings
+SECRET_KEY=django-insecure--d((3m#c=k_5s3^z_j%i%&*#e(!4j5#p993*921^)p6*^#ozai
+DEBUG=True
+
+# Stripe Configuration
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
+STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
+
+# Google Gemini AI
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Google OAuth2
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=your_google_oauth2_key_here
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=your_google_oauth2_secret_here
+
+# Database (if you want to use environment variables for database config)
+DATABASE_URL=sqlite:///db.sqlite3 
